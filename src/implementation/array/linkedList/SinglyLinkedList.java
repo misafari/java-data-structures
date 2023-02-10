@@ -3,6 +3,8 @@ package implementation.array.linkedList;
 
 import implementation.array.Array;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 // you are not allowed to import any classes
 
@@ -20,7 +22,7 @@ public class SinglyLinkedList<T> implements Array<T> {
         if (isEmpty())
             first = last = node;
         else {
-            node.setNext(first);
+            node.next = first;
             first = node;
         }
 
@@ -33,9 +35,10 @@ public class SinglyLinkedList<T> implements Array<T> {
         if (isEmpty())
             first = last = node;
         else {
-            last.setNext(node);
+            last.next = node;
             last = node;
         }
+
         size++;
     }
 
@@ -48,8 +51,8 @@ public class SinglyLinkedList<T> implements Array<T> {
             return;
         }
 
-        var second = first.getNext();
-        first.setNext(null);
+        var second = first.next;
+        first.next = null;
         first = second;
 
         size--;
@@ -64,15 +67,15 @@ public class SinglyLinkedList<T> implements Array<T> {
             return;
         }
 
+
         var prevLastNode = first;
 
-        while (prevLastNode != null) {
-            if (prevLastNode.getNext() == last) break;
-            prevLastNode = prevLastNode.getNext();
+        for (; prevLastNode != null; prevLastNode = prevLastNode.next) {
+            if (prevLastNode.next == last) break;
         }
 
         assert prevLastNode != null;
-        prevLastNode.setNext(null);
+        prevLastNode.next = null;
         last = prevLastNode;
 
         size--;
@@ -83,16 +86,12 @@ public class SinglyLinkedList<T> implements Array<T> {
     }
 
     public int indexOf(T element) {
-        var selectedNode = first;
         var index = 0;
-
-        while (selectedNode != null) {
-            if (selectedNode.contain(element)) {
+        for (var s = first; s != null; s = s.next) {
+            if (s.contain(element))
                 return index;
-            }
 
             index++;
-            selectedNode = selectedNode.getNext();
         }
 
         return -1;
@@ -104,18 +103,18 @@ public class SinglyLinkedList<T> implements Array<T> {
         if (first == last) return;
 
         var preNode = first;
-        var selectedNode = first.getNext();
+        var selectedNode = first.next;
 
         while (selectedNode != null) {
-            var nextNode = selectedNode.getNext();
+            var nextNode = selectedNode.next;
 
-            selectedNode.setNext(preNode);
+            selectedNode.next = preNode;
             preNode = selectedNode;
             selectedNode = nextNode;
         }
 
         last = first;
-        last.setNext(null);
+        last.next = null;
         first = preNode;
     }
 
@@ -126,69 +125,73 @@ public class SinglyLinkedList<T> implements Array<T> {
 
     @Override
     public T get(int index) throws NoSuchElementException, ArrayIndexOutOfBoundsException {
-        if (isEmpty()) throw new NoSuchElementException();
+        if (isEmpty())
+            throw new NoSuchElementException();
 
-        if (index < 0 || index >= size) throw new ArrayIndexOutOfBoundsException();
+        if (index < 0 || index >= size)
+            throw new ArrayIndexOutOfBoundsException();
 
         var steps = 0;
-        var selectedNode = first;
+        var s = first;
 
-        while (index != steps) {
-            selectedNode = selectedNode.getNext();
+        for (; index != steps; s = s.next)
             steps++;
-        }
 
-        return selectedNode.getValue();
+        return s.value;
     }
 
     @Override
     public void remove(T element) throws NoSuchElementException {
-        if (isEmpty()) throw new NoSuchElementException();
+        if (isEmpty())
+            throw new NoSuchElementException();
+
+        if (first == last) {
+            deleteFirst();
+            return;
+        }
 
         var selectedNode = first;
         var prevNode = first;
 
         while (!selectedNode.contain(element)) {
-            if (selectedNode.getNext() == null) {
+            if (selectedNode.next == null)
                 return;
-            }
+
             prevNode = selectedNode;
-            selectedNode = selectedNode.getNext();
+            selectedNode = selectedNode.next;
         }
 
-        if (prevNode == selectedNode) {
-            deleteFirst();
-        }
-
-        prevNode.setNext(selectedNode.getNext());
+        prevNode.next = selectedNode.next;
         size--;
     }
 
     @Override
     public void removeByIndex(int index) {
-        if (isEmpty()) throw new NoSuchElementException();
+        if (isEmpty())
+            throw new NoSuchElementException();
 
-        if (index < 0 || index >= size) throw new ArrayIndexOutOfBoundsException();
+        if (index < 0 || index >= size)
+            throw new ArrayIndexOutOfBoundsException();
+
+        if (first == last) {
+            deleteFirst();
+            return;
+        }
 
         var steps = 0;
         var selectedNode = first;
         var prevNode = first;
 
         while (index != steps) {
-            if (selectedNode.getNext() == null) {
+            if (selectedNode.next == null)
                 return;
-            }
 
             prevNode = selectedNode;
-            selectedNode = selectedNode.getNext();
+            selectedNode = selectedNode.next;
             steps++;
         }
 
-        if (prevNode == selectedNode) {
-            deleteFirst();
-        }
-
-        prevNode.setNext(selectedNode.getNext());
+        prevNode.next = selectedNode.next;
         size--;
     }
 
@@ -197,23 +200,60 @@ public class SinglyLinkedList<T> implements Array<T> {
         return size;
     }
 
+    @Override
     public void print() {
-        if (first == null) {
-            System.out.println("[]");
-            return;
+        System.out.println(this);
+    }
+
+    public Object[] toArray() {
+        var array = new Object[size];
+
+        var i = 0;
+        for (var s = first; s != null; s = s.next)
+            array[i++] = s.value;
+
+        return array;
+    }
+
+    public T getKthFromTheEnd(int k) {
+        if (isEmpty())
+            throw new IllegalStateException();
+
+        var a = first;
+        var b = first;
+
+        for (int i = 0; i < k - 1; i++) {
+            b = b.next;
+
+            if (b == null)
+                throw new IllegalArgumentException();
         }
 
-        if (first == last) {
-            System.out.println(first.getValue());
-            return;
+        while (b != last) {
+            a = a.next;
+            b = b.next;
         }
 
-        var selectedNode = first;
+        return a.value;
+    }
 
-        while (selectedNode != null) {
-            System.out.println(selectedNode.getValue());
-            selectedNode = selectedNode.getNext();
+    public String toString() {
+        if (first == null) return "[]";
+
+        if (first == last) return "[%s]".formatted(first.value);
+
+        var sb = new StringBuilder("[");
+
+        for (var s = first; s != null; s = s.next) {
+            sb.append(s.value);
+
+            if (s != last)
+                sb.append(",");
         }
+
+        sb.append("]");
+
+        return sb.toString();
     }
 
     private boolean isEmpty() {
