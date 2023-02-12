@@ -1,10 +1,8 @@
-package implementation.array.linkedList;
+package implementation.linkedList;
 
 
 import implementation.array.Array;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 // you are not allowed to import any classes
 
