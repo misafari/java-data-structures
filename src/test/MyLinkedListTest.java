@@ -1,6 +1,6 @@
 package test;
 
-import implementation.array.linkedList.SinglyLinkedList;
+import implementation.linkedList.SinglyLinkedList;
 
 import java.util.NoSuchElementException;
 

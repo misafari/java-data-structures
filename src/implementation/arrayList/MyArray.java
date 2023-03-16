@@ -1,4 +1,4 @@
-package implementation.array.arrayList;
+package implementation.arrayList;
 
 // you are not allowed to import any classes
 

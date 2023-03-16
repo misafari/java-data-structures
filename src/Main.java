@@ -1,16 +1,19 @@
+import implementation.sort.SelectionSort;
+import implementation.sort.Sort;
 
-import implementation.array.linkedList.SinglyLinkedList;
+import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
-        SinglyLinkedList<Integer> a = new SinglyLinkedList<>();
+    public static void main(String[] args) throws Exception {
+        int[] simpleArray = {1, 50, 3, 23, 40, 2};
+        int[] sorted = {1, 2, 3};
 
-        a.add(10);
-        a.add(20);
-        a.add(30);
-        a.add(40);
-        a.add(50);
+        doSort(sorted, new SelectionSort());
 
-        System.out.println(a.getKthFromTheEnd(2));
+        System.out.println(Arrays.toString(sorted));
+    }
+
+    public static void doSort(int[] array, Sort sort) {
+        sort.sort(array);
     }
 }
