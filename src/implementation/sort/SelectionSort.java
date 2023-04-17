@@ -2,11 +2,12 @@ package implementation.sort;
 
 public class SelectionSort implements Sort{
     @Override
-    public void sort(int[] array) {
+    public int sort(int[] array) {
         for (var i = 0; i < array.length; i++) {
             int mi = findMinIndex(array, i);
             swap(array, mi, i);
         }
+        return 0;
     }
 
     private int findMinIndex(int[] array, int i) {
