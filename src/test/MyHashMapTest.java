@@ -1,6 +1,6 @@
 package test;
 
-import implementation.map.MyHashMap;
+import implementation.dataStructures.map.MyHashMap;
 
 public class MyHashMapTest {
 

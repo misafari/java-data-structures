@@ -1,4 +1,4 @@
-package implementation.array;
+package implementation.dataStructures.array;
 
 import java.util.NoSuchElementException;
 

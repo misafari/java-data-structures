@@ -1,7 +1,7 @@
-package implementation.linkedList;
+package implementation.dataStructures.linkedList;
 
 
-import implementation.array.Array;
+import implementation.dataStructures.array.Array;
 
 import java.util.NoSuchElementException;
 // you are not allowed to import any classes

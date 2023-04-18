@@ -1,4 +1,4 @@
-package implementation.linkedList;
+package implementation.dataStructures.linkedList;
 
 class Node<T> {
     final T value;

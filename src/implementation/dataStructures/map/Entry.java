@@ -1,4 +1,4 @@
-package implementation.map;
+package implementation.dataStructures.map;
 
 public class Entry {
     int key;

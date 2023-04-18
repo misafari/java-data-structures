@@ -1,6 +1,6 @@
 package test;
 
-import implementation.linkedList.SinglyLinkedList;
+import implementation.dataStructures.linkedList.SinglyLinkedList;
 
 import java.util.NoSuchElementException;
 

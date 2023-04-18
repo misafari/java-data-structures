@@ -1,6 +1,9 @@
-package implementation.sort;
+package implementation.algorithms.sort;
 
-public class SelectionSort implements Sort{
+public class SelectionSort implements Sort {
+    // todo find the problem
+    // todo add counter (be smart)
+
     @Override
     public int sort(int[] array) {
         for (var i = 0; i < array.length; i++) {
@@ -12,8 +15,9 @@ public class SelectionSort implements Sort{
 
     private int findMinIndex(int[] array, int i) {
         var mi = i;
-        for (var j = i; j < array.length; j++)
+        for (var j = i; j < array.length; j++){
             if (array[j] < array[mi]) mi = j;
+        }
         return mi;
     }
 

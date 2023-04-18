@@ -1,4 +1,4 @@
-package implementation.sort;
+package implementation.algorithms.sort;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;

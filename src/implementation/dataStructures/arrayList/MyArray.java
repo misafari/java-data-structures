@@ -1,8 +1,8 @@
-package implementation.arrayList;
+package implementation.dataStructures.arrayList;
 
 // you are not allowed to import any classes
 
-import implementation.array.Array;
+import implementation.dataStructures.array.Array;
 
 public class MyArray<T> implements Array<T> {
     private static final byte initialCapacity = 10;

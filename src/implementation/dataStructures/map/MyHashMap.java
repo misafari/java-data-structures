@@ -1,4 +1,4 @@
-package implementation.map;
+package implementation.dataStructures.map;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;

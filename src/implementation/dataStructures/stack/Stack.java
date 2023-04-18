@@ -1,7 +1,4 @@
-package implementation.stack;
-
-import java.util.Arrays;
-import java.util.Collections;
+package implementation.dataStructures.stack;
 
 public class Stack {
     private int[] elements;
